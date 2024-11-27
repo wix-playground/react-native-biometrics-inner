@@ -29,6 +29,7 @@ import java.security.Signature;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import android.util.Log;
 
 /**
  * Created by brandon on 4/5/18.
@@ -56,6 +57,8 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                 BiometricManager biometricManager = BiometricManager.from(reactApplicationContext);
                 int canAuthenticate = biometricManager.canAuthenticate(getAllowedAuthenticators(allowDeviceCredentials));
 
+                Log.e("isSensorAvailable", "canAuthenticate value is: " + canAuthenticate + ", " + BiometricManager.BIOMETRIC_SUCCESS);
+
                 if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
                     WritableMap resultMap = new WritableNativeMap();
                     resultMap.putBoolean("available", true);
@@ -77,7 +80,7 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
                             resultMap.putString("error", "BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED");
-                            break; 
+                            break;
                     }
 
                     promise.resolve(resultMap);

@@ -29,7 +29,6 @@ import java.security.Signature;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import android.util.Log;
 
 /**
  * Created by brandon on 4/5/18.
@@ -56,8 +55,6 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                 ReactApplicationContext reactApplicationContext = getReactApplicationContext();
                 BiometricManager biometricManager = BiometricManager.from(reactApplicationContext);
                 int canAuthenticate = biometricManager.canAuthenticate(getAllowedAuthenticators(allowDeviceCredentials));
-
-                Log.e("isSensorAvailable", "canAuthenticate value is: " + canAuthenticate + ", " + BiometricManager.BIOMETRIC_SUCCESS);
 
                 if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
                     WritableMap resultMap = new WritableNativeMap();

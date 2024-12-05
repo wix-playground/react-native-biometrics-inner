@@ -73,6 +73,10 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                             resultMap.putString("error", "BIOMETRIC_ERROR_HW_UNAVAILABLE");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                            val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                                putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, getAllowedAuthenticators(allowDeviceCredentials))
+                            }
+                            startActivityForResult(enrollIntent, REQUEST_CODE)
                             resultMap.putString("error", "BIOMETRIC_ERROR_NONE_ENROLLED");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:

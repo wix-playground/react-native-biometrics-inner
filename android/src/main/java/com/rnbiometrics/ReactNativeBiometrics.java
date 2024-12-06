@@ -6,6 +6,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
 import android.provider.Settings;
+import android.os.Bundle;
 
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
@@ -77,7 +78,8 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                         case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
                             final Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
                             enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, getAllowedAuthenticators(allowDeviceCredentials));
-                            reactApplicationContext.startActivityForResult(enrollIntent, 101);
+                            Bundle bundleOptions = new Bundle();
+                            reactApplicationContext.startActivityForResult(enrollIntent, 101, bundleOptions);
                             resultMap.putString("error", "BIOMETRIC_ERROR_NONE_ENROLLED");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:

@@ -77,7 +77,7 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                         case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
                             final Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
                             enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, getAllowedAuthenticators(allowDeviceCredentials));
-                            reactApplicationContext.startActivity(enrollIntent);
+                            reactApplicationContext.startActivityForResult(enrollIntent, 101);
                             resultMap.putString("error", "BIOMETRIC_ERROR_NONE_ENROLLED");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:

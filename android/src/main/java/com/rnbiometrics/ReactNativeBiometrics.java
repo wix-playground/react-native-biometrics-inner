@@ -1,9 +1,11 @@
 package com.rnbiometrics;
 
+import android.content.Intent;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
+import android.provider.Settings;
 
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
@@ -73,9 +75,9 @@ public class ReactNativeBiometrics extends ReactContextBaseJavaModule {
                             resultMap.putString("error", "BIOMETRIC_ERROR_HW_UNAVAILABLE");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                            Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                            final Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
                             enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, getAllowedAuthenticators(allowDeviceCredentials));
-                            startActivityForResult(enrollIntent, REQUEST_CODE);
+                            startActivityForResult(enrollIntent, 101);
                             resultMap.putString("error", "BIOMETRIC_ERROR_NONE_ENROLLED");
                             break;
                         case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
